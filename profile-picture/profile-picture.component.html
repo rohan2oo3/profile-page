@@ -1,0 +1,29 @@
+<div style="display: flex; justify-content: center;">
+    <ion-avatar style="height: 20vh; max-height: 200px; width: 20vh; max-width: 200px;">
+      <img [src]="pictureURL">
+    </ion-avatar>
+</div>
+<div style="display: flex; justify-content: center;">
+    <button mat-raised-button style="background: silver; margin-top: 10px; margin-bottom: 10px; border-radius: 20px;" (click)="fileInput.click()"><ion-icon name="camera-outline"></ion-icon>Change Picture</button>
+    <input hidden (change)="uploadFile($event.target)" #fileInput type="file" id="file" accept="image/*">
+</div>
+<ion-grid>
+  <ion-row *ngIf="cropperVisibility">
+    <div #cropContainer style="display: block; width: 90vw; max-width: 600px;">
+      <image-cropper
+        [imageFile]="imageFile"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1"
+        [imageQuality]="90"
+        format = "jpeg"     
+        (imageCropped)="imageCropped($event)"
+      ></image-cropper>
+    </div>
+  </ion-row>
+  <ion-row *ngIf="cropperVisibility">
+    <ion-col>
+      <button mat-raised-button style="background: silver; margin-right: 10pt;" (click)="saveFile()">Done</button>
+      <button mat-button color="warn" (click)="cancel()">Cancel</button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
